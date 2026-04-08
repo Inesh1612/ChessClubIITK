@@ -1,0 +1,283 @@
+import { useState, useEffect } from 'react';
+import AddEventModal from '../components/AddEventModal';
+import ViewDayModal from '../components/ViewDayModal';
+
+// Starting month matches our design references (October 2024 matters for demo fidelity)
+const PRE_SCHEDULED_EVENTS = [
+  { id: 'pre-1', type: 'workshop', title: 'Beginner Workshop', location: 'LHC 201', time: '18:00', date: '2024-10-08' },
+  { id: 'pre-2', type: 'tournament', title: 'Inter-IIT Selection Trials', location: 'SAC', time: 'All Day', date: '2024-10-16' },
+  { id: 'pre-3', type: 'tournament', title: 'Grandmaster Blitz Tournament', location: 'Auditorium', time: '14:00', date: '2024-10-25' }
+];
+
+const Calendar = () => {
+  const [currentDate, setCurrentDate] = useState(new Date(2024, 9, 1)); // October 2024 for demo purposes
+  const [events, setEvents] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isViewModalOpen, setIsViewModalOpen] = useState(false);
+  const [editingEvent, setEditingEvent] = useState(null);
+  const [viewDateEvents, setViewDateEvents] = useState([]);
+  const [selectedDate, setSelectedDate] = useState('');
+  
+  // Filters
+  const [showTournaments, setShowTournaments] = useState(true);
+  const [showWorkshops, setShowWorkshops] = useState(true);
+  const [showMatches, setShowMatches] = useState(true);
+
+  // Load from local storage
+  useEffect(() => {
+    const saved = localStorage.getItem('chess-club-user-events');
+    if (saved) {
+      try {
+        setEvents(JSON.parse(saved));
+      } catch (e) {
+        console.error("Could not parse saved events");
+      }
+    }
+  }, []);
+
+  const handleAddEvent = (newEvent) => {
+    const updatedEvents = [...events, newEvent];
+    setEvents(updatedEvents);
+    localStorage.setItem('chess-club-user-events', JSON.stringify(updatedEvents));
+  };
+
+  const handleEditEvent = (updatedEvent) => {
+    const updatedEvents = events.map(e => e.id === updatedEvent.id ? updatedEvent : e);
+    setEvents(updatedEvents);
+    localStorage.setItem('chess-club-user-events', JSON.stringify(updatedEvents));
+    setEditingEvent(null);
+  };
+
+  const handleDeleteEvent = (eventId) => {
+    const updatedEvents = events.filter(e => e.id !== eventId);
+    setEvents(updatedEvents);
+    localStorage.setItem('chess-club-user-events', JSON.stringify(updatedEvents));
+    setEditingEvent(null);
+  };
+
+  const allEvents = [
+    ...(showWorkshops || showTournaments ? PRE_SCHEDULED_EVENTS.filter(e => 
+      (e.type === 'tournament' && showTournaments) || 
+      (e.type === 'workshop' && showWorkshops)
+    ) : []),
+    ...(showMatches ? events : [])
+  ];
+
+  const handlePrevMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() - 1, 1));
+  };
+  
+  const handleNextMonth = () => {
+    setCurrentDate(new Date(currentDate.getFullYear(), currentDate.getMonth() + 1, 1));
+  };
+
+  // Calendar logic
+  const year = currentDate.getFullYear();
+  const month = currentDate.getMonth(); 
+  
+  const firstDayOfMonth = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const daysInPrevMonth = new Date(year, month, 0).getDate();
+  
+  const monthName = currentDate.toLocaleString('default', { month: 'long' });
+
+  const calendarCells = [];
+  
+  // Previous month padding
+  for (let i = 0; i < firstDayOfMonth; i++) {
+    const day = daysInPrevMonth - firstDayOfMonth + i + 1;
+    calendarCells.push({ type: 'prev', day });
+  }
+  
+  // Current month
+  for (let i = 1; i <= daysInMonth; i++) {
+    const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
+    calendarCells.push({ type: 'current', day: i, dateStr });
+  }
+  
+  // Next month padding
+  const totalCellsNeeded = calendarCells.length > 35 ? 42 : 35;
+  const remainingCells = totalCellsNeeded - calendarCells.length;
+  for (let i = 1; i <= remainingCells; i++) {
+    calendarCells.push({ type: 'next', day: i });
+  }
+
+  const handleScheduleClick = () => {
+    const today = new Date();
+    const dateStr = `${today.getFullYear()}-${String(today.getMonth() + 1).padStart(2, '0')}-${String(today.getDate()).padStart(2, '0')}`;
+    setSelectedDate(dateStr);
+    setIsModalOpen(true);
+  };
+
+  return (
+    <div className="p-8 h-screen flex flex-col relative overflow-hidden bg-surface text-on-surface">
+      <div className="mb-6 flex flex-col justify-between relative z-10 shrink-0">
+        <div className="max-w-2xl">
+          <h2 className="text-4xl font-serif text-on-surface leading-tight">Mastering the <span className="italic text-primary">Tides of Time</span></h2>
+          <p className="mt-2 text-on-surface-variant/80 text-base font-light leading-relaxed">View the collective assembly of the IITK Chess Community's upcoming stratagems, workshops, and championship cycles.</p>
+        </div>
+      </div>
+      
+      <div className="grid grid-cols-12 gap-6 relative z-10 flex-1 min-h-0">
+        <div className="col-span-12 lg:col-span-9 bg-surface-container-low rounded-xl overflow-hidden border border-outline-variant/10 flex flex-col">
+          <div className="flex items-center justify-between px-6 py-4 border-b border-outline-variant/10 shrink-0">
+            <h3 className="text-2xl font-serif font-bold text-on-surface">{monthName} <span className="text-on-surface-variant/50 font-normal">{year}</span></h3>
+            <div className="flex items-center gap-2">
+              <button onClick={handlePrevMonth} className="p-2 hover:bg-surface-container rounded-lg transition-colors material-symbols-outlined outline-none">chevron_left</button>
+              <button onClick={handleNextMonth} className="p-2 hover:bg-surface-container rounded-lg transition-colors material-symbols-outlined outline-none">chevron_right</button>
+            </div>
+          </div>
+          <div className="grid grid-cols-7 text-center border-b border-outline-variant/10 shrink-0">
+            {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day, i) => (
+              <div key={i} className="py-2 text-[10px] uppercase tracking-[0.2em] font-bold text-on-surface-variant/50">{day}</div>
+            ))}
+          </div>
+          <div className="grid grid-cols-7 auto-rows-fr flex-1 min-h-0">
+            {calendarCells.map((cell, idx) => {
+              const isCurrent = cell.type === 'current';
+              const dayEvents = isCurrent ? allEvents.filter(e => e.date === cell.dateStr) : [];
+              
+              const baseClass = "border-r border-b border-outline-variant/5 p-2 flex flex-col min-h-0 overflow-hidden relative group ";
+              let bgClass = isCurrent ? "bg-transparent hover:bg-surface-container-high transition-colors cursor-pointer " : "opacity-30 bg-surface-container-lowest ";
+              
+              return (
+                <div 
+                  key={idx} 
+                  className={baseClass + bgClass}
+                  onClick={() => {
+                    if (isCurrent) {
+                      setViewDateEvents(dayEvents);
+                      setSelectedDate(cell.dateStr);
+                      setIsViewModalOpen(true);
+                    }
+                  }}
+                >
+                  <span className={`text-sm ${dayEvents.length > 0 ? 'font-bold text-primary' : 'font-medium text-on-surface/80'}`}>
+                    {cell.day}
+                  </span>
+                  
+                  {isCurrent && (
+                     <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                         <button 
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              setSelectedDate(cell.dateStr);
+                              setIsModalOpen(true);
+                            }}
+                            className="material-symbols-outlined text-[14px] text-on-surface-variant hover:text-primary outline-none"
+                         >
+                           add
+                         </button>
+                     </div>
+                  )}
+
+                  <div className="mt-1 flex-1 min-h-0 overflow-y-auto space-y-1 disable-scrollbar">
+                    {dayEvents.map((evt, eIdx) => (
+                      <div 
+                        key={eIdx} 
+                        className={`px-1.5 py-1 rounded text-left border-l-[3px] ${
+                          evt.type === 'tournament' ? 'border-[#f2ca50] bg-primary/10' : 
+                          evt.type === 'workshop' ? 'border-[#e5e2e1] bg-[#e5e2e1]/5' : 
+                          'border-[#60a5fa] bg-[#60a5fa]/10' // user matches
+                        }`}
+                      >
+                        <div className={`text-[9px] font-bold uppercase tracking-tight leading-tight truncate ${
+                          evt.type === 'tournament' ? 'text-primary' :
+                          evt.type === 'workshop' ? 'text-on-surface' :
+                          'text-blue-400'
+                        }`}>
+                          {evt.title}
+                        </div>
+                        <div className="text-[8px] text-on-surface-variant mt-0.5 truncate">{evt.location} • {evt.time}</div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+
+        <div className="col-span-12 lg:col-span-3 space-y-6 flex flex-col">
+          <div className="bg-surface-container-low rounded-xl p-5 border border-outline-variant/10">
+            <h4 className="text-[10px] uppercase tracking-widest text-on-surface-variant/60 font-bold mb-4">Filter Events</h4>
+            <div className="space-y-3">
+              <label 
+                className="flex items-center gap-3 cursor-pointer group"
+                onClick={() => setShowTournaments(!showTournaments)}
+              >
+                <div className={`w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors ${showTournaments ? 'border border-[#f2ca50] bg-[#f2ca50]' : 'border border-outline-variant bg-transparent'}`}>
+                  {showTournaments && <span className="material-symbols-outlined text-[10px] text-[#3c2f00]">check</span>}
+                </div>
+                <span className="text-xs text-on-surface group-hover:text-primary transition-colors">Tournaments</span>
+              </label>
+              <label 
+                className="flex items-center gap-3 cursor-pointer group"
+                onClick={() => setShowWorkshops(!showWorkshops)}
+              >
+                <div className={`w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors ${showWorkshops ? 'border border-[#e5e2e1] bg-[#e5e2e1]' : 'border border-outline-variant bg-transparent'}`}>
+                  {showWorkshops && <span className="material-symbols-outlined text-[10px] text-[#131313]">check</span>}
+                </div>
+                <span className="text-xs text-on-surface group-hover:text-[#e5e2e1] transition-colors">Club Workshops</span>
+              </label>
+              <label 
+                className="flex items-center gap-3 cursor-pointer group"
+                onClick={() => setShowMatches(!showMatches)}
+              >
+                <div className={`w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors ${showMatches ? 'border border-blue-400 bg-blue-400' : 'border border-outline-variant bg-transparent'}`}>
+                  {showMatches && <span className="material-symbols-outlined text-[10px] text-black">check</span>}
+                </div>
+                <span className="text-xs text-on-surface group-hover:text-blue-400 transition-colors">Your Matches</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 gap-3">
+            <div className="bg-surface-container-low rounded-xl p-3 border border-outline-variant/10">
+              <p className="text-[9px] uppercase tracking-widest text-on-surface-variant mb-1">Active</p>
+              <p className="text-xl font-serif text-primary">{events.length}</p>
+            </div>
+            <div className="bg-surface-container-low rounded-xl p-3 border border-outline-variant/10">
+              <p className="text-[9px] uppercase tracking-widest text-on-surface-variant mb-1">Events</p>
+              <p className="text-xl font-serif text-primary">{PRE_SCHEDULED_EVENTS.length}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <button 
+        onClick={handleScheduleClick}
+        className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center group hover:scale-110 transition-all z-50 outline-none"
+      >
+        <span className="material-symbols-outlined text-2xl">add</span>
+        <span className="absolute right-16 bg-surface-container-highest text-[#e5e2e1] px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20 pointer-events-none whitespace-nowrap">Schedule Match</span>
+      </button>
+
+      <AddEventModal 
+        isOpen={isModalOpen}
+        onClose={() => {
+            setIsModalOpen(false);
+            setEditingEvent(null);
+        }}
+        onAddEvent={handleAddEvent}
+        initialDate={selectedDate}
+        editEvent={editingEvent}
+        onEditEvent={handleEditEvent}
+        onDeleteEvent={handleDeleteEvent}
+      />
+
+      <ViewDayModal 
+        isOpen={isViewModalOpen}
+        onClose={() => setIsViewModalOpen(false)}
+        dateStr={selectedDate}
+        events={viewDateEvents}
+        onEditClick={(evt) => {
+          setEditingEvent(evt);
+          setIsModalOpen(true);
+        }}
+      />
+    </div>
+  );
+};
+
+export default Calendar;
