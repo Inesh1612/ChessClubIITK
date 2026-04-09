@@ -69,7 +69,7 @@ const Landing = () => {
               </div>
               <div className="flex gap-4">
                 <div className="text-right">
-                  <p className="text-xs text-on-surface-variant">Aryan V.</p>
+                  <p className="text-xs text-on-surface-variant">Inesh A.</p>
                   <p className="font-serif text-primary">2240</p>
                 </div>
                 <div className="flex items-center font-serif text-on-surface-variant/40">vs</div>
@@ -91,24 +91,24 @@ const Landing = () => {
           </div>
           <div className="w-full md:w-1/2">
             <h3 className="text-xs font-label text-primary tracking-[0.4em] uppercase mb-4">Next Event</h3>
-            <h2 className="text-5xl font-serif mb-6 italic">The Director’s Cup 2024</h2>
-            <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">The flagship tournament of the year. Open to all students, faculty, and alumni. A battle for the ultimate prestige and the permanent record in the Grandmaster's Ledger.</p>
+            <h2 className="text-5xl font-serif mb-6 italic">Fresher's Chess League</h2>
+            <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">Experience the thrill of OTB chess! An exclusive 8-player team tournament kicking off with live offline auctions. Fight through the group pools to secure the top knockout spots!</p>
             <ul className="space-y-4 mb-10">
               <li className="flex items-center gap-4 text-on-surface">
                 <span className="material-symbols-outlined text-primary">event</span>
-                <span className="font-medium">March 15th - 20th</span>
+                <span className="font-medium">August 21st - 23rd, 2026</span>
               </li>
               <li className="flex items-center gap-4 text-on-surface">
                 <span className="material-symbols-outlined text-primary">location_on</span>
-                <span className="font-medium">Open Air Theatre (OAT)</span>
+                <span className="font-medium">Senate Hall & OAT</span>
               </li>
               <li className="flex items-center gap-4 text-on-surface">
-                <span className="material-symbols-outlined text-primary">payments</span>
-                <span className="font-medium">₹25,000 Prize Pool</span>
+                <span className="material-symbols-outlined text-primary">emoji_events</span>
+                <span className="font-medium">8 Gold Memberships + Coupons</span>
               </li>
             </ul>
             <button className="primary-gradient text-on-primary font-bold px-12 py-5 rounded-lg shadow-xl">
-                Register for Cup
+                Register for League
             </button>
           </div>
         </div>
@@ -147,7 +147,7 @@ const Landing = () => {
           </div>
         </div>
         <div className="mt-16 pt-8 border-t border-outline-variant/5 flex justify-between items-center text-[10px] uppercase tracking-widest text-on-surface-variant/40">
-          <p>© 2024 IIT Kanpur Chess Club. All Rights Reserved.</p>
+          <p>© 2026 IIT Kanpur Chess Club. All Rights Reserved.</p>
           <p>Designed for the Intellectual Elite</p>
         </div>
       </footer>

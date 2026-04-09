@@ -4,52 +4,51 @@ import { Link } from 'react-router-dom';
 export const OFFICIAL_EVENTS = [
   {
     id: 1,
-    title: "Grandmaster Simultaneous Exhibition",
-    date: "October 25, 2024",
-    tag: "Exhibition",
-    time: "14:00 - 18:00",
-    location: "Main Auditorium, IIT Kanpur",
-    shortDesc: "Face off against visiting GM Arjun Prasad in a 50-board simultaneous exhibition.",
-    fullDesc: "This is a rare opportunity for club members and university students to battle against a seasoned Grandmaster. The event will begin with a 30-minute lecture on positional sacrifices followed by the simultaneous matches. Boards will be assigned on a first-come, first-served basis.",
+    title: "League of Legends 6.0",
+    date: "August 7, 2026",
+    tag: "Tournament",
+    time: "Multiple Days",
+    location: "chess.com",
+    shortDesc: "An open-for-all 4-player team event. Qualifiers start August 7th with the best advancing to knockouts!",
+    fullDesc: "Form a 4-player team and compete in the legendary online qualifier arena (3+2 blitz format) on August 7th! The stakes are high: only the top 6 teams overall, along with the top 2 Alumni teams, will qualify for the knockouts. The semi-finals and finals knockouts will transition to a high-pressure 5+0 format.",
     schedule: [
-      { time: "14:00", activity: "Opening Remarks & Lecture" },
-      { time: "14:30", activity: "Matches Begin" },
-      { time: "17:30", activity: "Analysis of Critical Games" }
+      { time: "Aug 7th", activity: "Qualifier Arena (Blitz 3+2)" },
+      { time: "Aug 8th", activity: "Semi-Finals Knockouts (Blitz 5+0)" },
+      { time: "Aug 9th", activity: "Grand Finals (Blitz 5+0)" }
     ],
-    prizes: "Top 3 longest surviving players receive customized chess sets."
+    prizes: "Winning team gets 4 Gold Memberships!"
   },
   {
     id: 2,
-    title: "Winter Chess Camp: Endgame Mastery",
-    date: "November 5-7, 2024",
-    tag: "Workshop",
-    time: "18:00 - 20:00 Daily",
-    location: "LHC 201",
-    shortDesc: "A 3-day intensive workshop focusing exclusively on pawn endings and rook maneuvers.",
-    fullDesc: "Designed for intermediate players (1500-1900 ELO), this intensive boot camp breaks down the most critical endgame scenarios. We strongly recommend attendees review the pre-camp materials regarding the Lucena and Philidor positions.",
+    title: "Fresher's Chess League",
+    date: "August 21, 2026",
+    tag: "Tournament",
+    time: "Multiple Days",
+    location: "Senate Hall & OAT",
+    shortDesc: "An 8-player team OTB tournament featuring offline auctions, pools, and knockouts!",
+    fullDesc: "Experience the thrill of OTB chess! The tournament begins on August 21st with an offline auction in the Senate Hall to distribute players into 8 teams. The teams will be divided into 2 pools of 4 teams each. You will battle it out in a Round Robin stage (10+5 format) where each team plays the other 3. The top 2 teams from each pool advance to the fiery semi-finals and finals on August 23rd!",
     schedule: [
-      { time: "Day 1", activity: "Pawn vs Pawn Fundamentals" },
-      { time: "Day 2", activity: "Rook Endgames Basics" },
-      { time: "Day 3", activity: "Complex Asymmetrical Endgames" }
+      { time: "Aug 21st", activity: "Player Auctions (Senate Hall)" },
+      { time: "Aug 22nd", activity: "Round Robin Pool Stages (OAT)" },
+      { time: "Aug 23rd", activity: "Semi-Finals & Finals (OAT)" }
     ],
-    prizes: "Certificate of Completion"
+    prizes: "8 Gold Memberships for Winners + Mama Mio Coupons for Top 50!"
   },
   {
     id: 3,
-    title: "Inter-Hall Championship 2024",
-    date: "November 20, 2024",
+    title: "IITK Grand Swiss",
+    date: "October 2, 2026",
     tag: "Tournament",
-    time: "10:00 - 21:00",
-    location: "Student Activity Center (SAC)",
-    shortDesc: "The pinnacle inter-hostel tournament of the year. Represent your hall and fight for the coveted Bishop's Cup.",
-    fullDesc: "Each hall may field a squad of 5 active players and 2 substitutes. The format is a 7-round Swiss system. Individual board points heavily influence the overall team standings, so every match matters. Blitz tiebreakers will determine podium finishes.",
+    time: "Multiple Days",
+    location: "Hall 3 Mess",
+    shortDesc: "A 7-round Swiss OTB tournament. The gateway to the Candidates and the Chess Cup!",
+    fullDesc: "Calling all chess enthusiasts! The IITK Grand Swiss is entirely an Over-The-Board (OTB) tournament played under a 10+5 rapid time format using the Swiss System format. Across 7 grueling rounds, players will battle it out to secure highly coveted spots in the next IITK Candidates tournament and the Chess Cup.",
     schedule: [
-      { time: "10:00", activity: "Round 1 & 2" },
-      { time: "14:00", activity: "Round 3 & 4" },
-      { time: "17:00", activity: "Round 5, 6, 7" },
-      { time: "20:30", activity: "Awards Ceremony" }
+      { time: "Oct 2nd", activity: "Rounds 1 - 3" },
+      { time: "Oct 3rd", activity: "Rounds 4 & 5" },
+      { time: "Oct 4th", activity: "Rounds 6 & 7 (Finals)" }
     ],
-    prizes: "The Bishop's Cup (Team), 1-Year chess.com Diamond (MVP)"
+    prizes: "Top 3: Candidates. Pos 4-17: Chess Cup. Top 5: Gold Memberships. Top 50: Coupons."
   }
 ];
 
@@ -63,8 +62,7 @@ const Events = () => {
   return (
     <div className="px-12 py-12 max-w-5xl mx-auto min-h-screen">
       <div className="mb-12">
-        <h2 className="text-sm font-label uppercase tracking-[0.3em] text-primary mb-3">Official Directory</h2>
-        <h1 className="text-5xl font-serif text-on-surface leading-tight tracking-tight mb-4">Upcoming Engagements</h1>
+        <h1 className="text-5xl font-serif text-on-surface leading-tight tracking-tight mb-4">Upcoming Events</h1>
         <p className="text-on-surface-variant text-base max-w-2xl leading-relaxed">
           The curated schedule of major club events, workshops, and tournaments. For your personal match schedule, please consult the Calendar.
         </p>
@@ -150,7 +148,7 @@ const Events = () => {
                           to={`/events/register/${event.id}`}
                           className="w-full block text-center bg-gradient-to-r from-[#f2ca50] to-[#d4af37] text-[#3c2f00] font-bold py-3.5 rounded-lg text-xs uppercase tracking-widest hover:scale-[1.02] shadow-lg transition-transform outline-none mt-4"
                         >
-                          Register RSVP
+                          Register
                         </Link>
                       </div>
 

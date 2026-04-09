@@ -1,4 +1,5 @@
 import { Link, NavLink } from 'react-router-dom';
+import logo from '../assets/chessclubiitklogo.jpeg';
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
   return (
@@ -18,8 +19,8 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
         <Link to="/" className={`flex flex-col items-center gap-3 group`}>
           <img 
             alt="Chess Club IITK Seal" 
-            className={`rounded-full border border-primary-container/20 group-hover:border-primary transition-all duration-300 shrink-0 shadow-lg ${isCollapsed ? 'w-10 h-10' : 'w-16 h-16'}`} 
-            src="https://lh3.googleusercontent.com/aida-public/AB6AXuB-8FyuiepfVE2rRNKrhiLboifRhjQgT_p0mKF81eOzXRKgsTSDOYFhGlokj_ayIz-_4cLps3_vkPzbpaHHIkRrwZLfCoOQDxvkR2nl2XJgRoC5wS6-qmGo6GfAcXvKbugSIw-gO7EKV58vET1z18WlHMhTX4_-23K5wYoa978ONFTvSFxcDk7VfOYSIFRIy63YFtBVHo7swYW603GeXFc8xLV5lIJ7sMlfCXOpbbTvvqpPeUc9G-Fp_ap7pQThm_BmTPpQJTYCnIw" 
+            className={`rounded-full border border-primary-container/20 group-hover:border-primary transition-all duration-300 shrink-0 shadow-lg object-cover ${isCollapsed ? 'w-10 h-10' : 'w-16 h-16'}`} 
+            src={logo} 
           />
           <div className={`flex flex-col transition-all duration-300 ${isCollapsed ? 'h-0 opacity-0 hidden' : 'h-auto opacity-100 mt-2'}`}>
             <span className="text-xl font-serif italic text-[#D4AF37] tracking-tighter group-hover:text-primary transition-colors">Chess Club IITK</span>
@@ -49,6 +50,13 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           <span className="material-symbols-outlined shrink-0">article</span>
           <div className={`transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100'}`}>
             <span className="text-sm tracking-wide truncate">Blogs</span>
+          </div>
+        </NavLink>
+
+        <NavLink to="/contact" className={({ isActive }) => `flex items-center gap-4 py-3 rounded-lg transition-colors duration-300 ${isCollapsed ? 'justify-center px-0 mx-2' : 'pl-4'} ${isActive && !isCollapsed ? 'text-[#f2ca50] font-bold border-l-4 border-[#D4AF37] bg-[#201f1f]/50' : isActive && isCollapsed ? 'text-[#f2ca50] font-bold bg-[#201f1f]/50' : 'text-[#e5e2e1]/60 font-medium hover:bg-[#201f1f] hover:text-[#f2ca50]'}`}>
+          <span className="material-symbols-outlined shrink-0">contact_page</span>
+          <div className={`transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100'}`}>
+            <span className="text-sm tracking-wide truncate">Contact Us</span>
           </div>
         </NavLink>
 
