@@ -6,7 +6,7 @@ const EventRegistration = () => {
   const { id } = useParams();
   const event = OFFICIAL_EVENTS.find(e => e.id === parseInt(id, 10));
 
-  const [formData, setFormData] = useState({ name: '', rollNo: '', rating: '', remarks: '' });
+  const [formData, setFormData] = useState({ name: '', rollNo: '', chessId: '', contactNo: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -67,7 +67,7 @@ const EventRegistration = () => {
         </div>
       </div>
 
-      <div className="bg-surface-container border border-[#4d4635]/20 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden flex-1">
+      <div className="bg-surface-container border border-[#4d4635]/20 rounded-2xl p-8 md:p-12 shadow-2xl relative overflow-hidden">
         {/* Glow Effects */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
 
@@ -94,7 +94,7 @@ const EventRegistration = () => {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Grandmaster Name (Full Name)</label>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Name</label>
                 <input 
                   type="text" 
                   required
@@ -106,7 +106,7 @@ const EventRegistration = () => {
               </div>
 
               <div>
-                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Institute Roll Number</label>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Roll Number</label>
                 <input 
                   type="text" 
                   required
@@ -116,41 +116,42 @@ const EventRegistration = () => {
                   className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
                 />
               </div>
+            </div>
+
+            <div className="space-y-4">
+              <div>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Chess.com ID</label>
+                <input 
+                  type="text" 
+                  required
+                  placeholder="e.g. magnuscarlsen"
+                  value={formData.chessId}
+                  onChange={(e) => setFormData({...formData, chessId: e.target.value})}
+                  className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+                />
+              </div>
 
               <div>
-                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">
-                  Current ELO Rating <span className="text-[9px] text-on-surface-variant/50 ml-1">(Optional)</span>
-                </label>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Contact Number</label>
                 <input 
-                  type="number" 
-                  placeholder="e.g. 1800"
-                  value={formData.rating}
-                  onChange={(e) => setFormData({...formData, rating: e.target.value})}
+                  type="tel" 
+                  required
+                  placeholder="e.g. +91 9876543210"
+                  value={formData.contactNo}
+                  onChange={(e) => setFormData({...formData, contactNo: e.target.value})}
                   className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
                 />
               </div>
             </div>
 
-            <div className="space-y-4 flex flex-col h-full">
-              <div className="flex-1 flex flex-col">
-                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Tactical Remarks / Queries</label>
-                <textarea 
-                  placeholder="Any specific questions for the organizers or dietary constraints?"
-                  value={formData.remarks}
-                  onChange={(e) => setFormData({...formData, remarks: e.target.value})}
-                  className="w-full flex-1 bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)] resize-none"
-                ></textarea>
-              </div>
-
-              <div className="pt-2">
-                <button 
-                  type="submit"
-                  disabled={isSubmitting}
-                  className={`w-full bg-gradient-to-r from-[#f2ca50] to-[#d4af37] text-[#3c2f00] font-bold py-4 rounded-lg text-xs uppercase tracking-widest outline-none transition-all ${isSubmitting ? 'opacity-80 scale-[0.98]' : 'hover:scale-[1.02] shadow-[0_10px_20px_rgba(212,175,55,0.15)]'}`}
-                >
-                  {isSubmitting ? 'Transmitting Data...' : 'Confirm Registration'}
-                </button>
-              </div>
+            <div className="md:col-span-2 pt-2">
+              <button 
+                type="submit"
+                disabled={isSubmitting}
+                className={`w-full bg-gradient-to-r from-[#f2ca50] to-[#d4af37] text-[#3c2f00] font-bold py-4 rounded-lg text-xs uppercase tracking-widest outline-none transition-all ${isSubmitting ? 'opacity-80 scale-[0.98]' : 'hover:scale-[1.02] shadow-[0_10px_20px_rgba(212,175,55,0.15)]'}`}
+              >
+                {isSubmitting ? 'Transmitting Data...' : 'Confirm Registration'}
+              </button>
             </div>
             
           </form>
