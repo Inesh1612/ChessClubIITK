@@ -1,33 +1,37 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import fresherImg from '../assets/fresher_league_recap_1775765383248.png';
+import grandSwissImg from '../assets/grand_swiss_recap_1775765397656.png';
+import smotheredMateImg from '../assets/smothered_mate_puzzle_1775765413177.png';
+import endgameImg from '../assets/endgame_puzzle_1775765427614.png';
 
 const BLOG_POSTS = [
   {
-    id: 2,
-    title: "The Zen of Pawn Structures",
-    date: "August 24, 2024",
-    tag: "Endgame Mastery",
-    excerpt: "Understanding the skeletal framework of the game. How isolated pawns dictate the flow of tactical exchanges in the late midgame.",
-    author: "Rohan Sharma",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuDBIuwAzHidegculqXCV5fm1P4dFV-dYeDOxYc-m-uYvDljOi3bRiQexEH-kLDIj0JNQZ2xgx2CAjtu8Fs41WDkaV3NtZdTvY0SZ4d8dFnm3SBo_5_LsCnpboHleJDVgNldgh1YJ0eyTQUTCGlUhean20dG2QanCM-2KoKgfwAA6EC5SBroSKNvFUzh5d1jOUdoVU_2ly9r06a3QV_Ar-QLYQF-xYdiliWNGAnQM9OoeZHVrHGKz8mVBLVAMzNtt8F53PUoQEPbGbc"
-  },
-  {
     id: 3,
-    title: "Clock Pressure and Decision Fatigue",
-    date: "August 18, 2024",
-    tag: "Psychology",
-    excerpt: "Analyzing how Grandmasters manage cognitive load during the final 5 minutes of a classical match.",
-    author: "Dr. S. Mehta",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuAzHqkkA6gFYsKdpzs-bHSmUzHPVfDqjfoVzNwOoOKNSrbUOajHbHmVXwvYwO0oj57_4vxt6htYsR0C1zIIe8VCce0sAelMHyDc7pZOvmTahSm-eWMtSGybl9g3ma_gsCOiwVDON4vAd4GZ3xL6bNifeR5YKRMl4UU2mBDues0W8O4CM7Kg0MX_010iqd4Er1EC4kqDXIlwmhy0zxh-0GjCLigWghxcGPe4fGgv3VZBUAmFQBZMMuddqUByrMnlNTq8ZRnAhXCiMso"
+    title: "IITK Grand Swiss: Path to the Candidates",
+    date: "March 15, 2026",
+    tag: "Event Recap",
+    excerpt: "A deep dive into the brutal 7-round grinding matches of the IITK Grand Swiss and how the top 3 players locked in their Candidate seats.",
+    author: "Akshat Srivastava",
+    image: grandSwissImg
   },
   {
     id: 4,
-    title: "Beyond Stockfish: The Neural Revolution",
-    date: "August 12, 2024",
-    tag: "Future of Play",
-    excerpt: "How AlphaZero and Leela Chess Zero changed the way we value traditional positional advantages vs tactical volatility.",
-    author: "Vikram Malhotra",
-    image: "https://lh3.googleusercontent.com/aida-public/AB6AXuATNZwg-CHeY6AAzEe7l-oJoqooTC6SaHL2GCFmbr0v8XAv8ONkoP3em_EZOGG4FZAQIIWsn65_lMUKtp2G2MOCiQ4LKrLBTk2YiDb40GNNLM4BYbeTZvyKNq2WfKBbE4jDhfj4qBN-dVTVWeEzUSQyWwAQbs4OXW7tZdJIwgofAufIMWvp9SaYdcD-tIlR6mhp-ToG84qTWsP_JK71j8GFweiOz7JAWzo_JfjiWGL1_5sOCeIQZSQSAeEMz3jLvIjD528OI59FB6I"
+    title: "Instagram Puzzle #45: Endgames are Purely Math",
+    date: "February 24, 2026",
+    tag: "Puzzle Analytics",
+    excerpt: "Analyzing the tricky pawn endgame challenge posted to the community last week. When to push, and when to play the waiting game.",
+    author: "Kushagra Shukla",
+    image: endgameImg
+  },
+  {
+    id: 2,
+    title: "Instagram Puzzle #44: The Smothered Mate Everyone Missed",
+    date: "February 12, 2026",
+    tag: "Puzzle Analytics",
+    excerpt: "Breaking down the tactical trap from our recent Instagram reel. Why did 80% of commenters fail to spot the critical knight sacrifice?",
+    author: "Inesh Aggarwal",
+    image: smotheredMateImg
   }
 ];
 
@@ -39,16 +43,16 @@ const Blogs = () => {
       <section className="relative mb-20 group mt-8">
         <div className="grid grid-cols-12 gap-0 overflow-hidden rounded-xl bg-surface-container-low border border-[#4d4635]/10">
           <div className="col-span-12 lg:col-span-7 h-[500px] overflow-hidden">
-            <img alt="Chess Strategy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCS-eIizGJpmQmjHuOCfHMLqnTcUQqFctyjRhaLApePIUb4-IDEXr8rKa28SKfo040roxiMdMPmjJWHQkWuGOWhkoQ7wsgSvzGZM9zVs2Skwh2weMFInVcr7GaMYinDuLmtziSq7uYyAv2vyhtPyByAkV3P5w6ZGOjNeIjj6UTy2-jBSCEhaJUmAehtyp8v3gBz_dDrlLa3DMLll8pb4_5rzKb2B7Gm7O3TLfzxAOgPuBYU_Ulm0b33QQpT21ndhfCQibyMkwLkIMI" />
+            <img alt="Chess Strategy" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src={fresherImg} />
           </div>
           <div className="col-span-12 lg:col-span-5 p-12 flex flex-col justify-center bg-surface-container">
             <div className="flex items-center space-x-3 mb-6">
-              <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-label tracking-widest uppercase rounded-full">Theory & Strategy</span>
-              <span className="text-on-surface-variant/40 text-[10px] font-label uppercase">12 Min Read</span>
+              <span className="px-3 py-1 bg-primary/10 text-primary text-[10px] font-label tracking-widest uppercase rounded-full">Event Recap</span>
+              <span className="text-on-surface-variant/40 text-[10px] font-label uppercase">8 Min Read</span>
             </div>
-            <h2 className="text-5xl font-serif font-bold leading-tight mb-6 text-on-surface">Mastering the Sicilian Defense: The Najdorf Variation</h2>
+            <h2 className="text-5xl font-serif font-bold leading-tight mb-6 text-on-surface">Fresher's Chess League 2026: An Absolute Thriller!</h2>
             <p className="text-on-surface-variant font-body leading-relaxed mb-8 text-sm">
-              Explore the high-stakes world of the Najdorf, where a single inaccuracy can lead to immediate collapse. We break down the positional nuances of the d5 square and the legendary Fischer-Geller encounters that shaped modern theory.
+              Recapping the absolute hype surrounding the offline auctions in the Senate Hall, analyzing the intense Round Robin pool matches at the OAT, and spotlighting the brilliant knockout blunders that ultimately led the underdogs to gold memberships.
             </p>
             <div className="flex items-center justify-between mt-auto">
               <div className="flex items-center space-x-3">
@@ -56,11 +60,11 @@ const Blogs = () => {
                   <span className="material-symbols-outlined text-primary text-sm">auto_awesome</span>
                 </div>
                 <div>
-                  <p className="text-xs font-bold text-on-surface">Arjun K. Prasad</p>
-                  <p className="text-[10px] text-on-surface-variant">Grandmaster-in-Residence</p>
+                  <p className="text-xs font-bold text-on-surface">Tanmay Sahare</p>
+                  <p className="text-[10px] text-on-surface-variant">Tournament Coordinator</p>
                 </div>
               </div>
-              <Link to="/blog/1" className="text-primary font-label text-xs uppercase tracking-widest border-b border-primary/30 pb-1 hover:border-primary transition-all">Read Thesis</Link>
+              <Link to="/blog/1" className="text-primary font-label text-xs uppercase tracking-widest border-b border-primary/30 pb-1 hover:border-primary transition-all">Read Recap</Link>
             </div>
           </div>
         </div>

@@ -6,7 +6,7 @@ const EventRegistration = () => {
   const { id } = useParams();
   const event = OFFICIAL_EVENTS.find(e => e.id === parseInt(id, 10));
 
-  const [formData, setFormData] = useState({ name: '', rollNo: '', rating: '', remarks: '' });
+  const [formData, setFormData] = useState({ name: '', rollNo: '', phone: '', email: '', remarks: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -52,11 +52,10 @@ const EventRegistration = () => {
     <div className="px-6 md:px-12 py-12 max-w-4xl mx-auto min-h-screen flex flex-col">
       <Link to="/events" className="group inline-flex items-center gap-2 text-on-surface-variant hover:text-primary transition-colors text-[10px] font-label uppercase tracking-widest mb-10 w-fit">
         <span className="material-symbols-outlined text-sm group-hover:-translate-x-1 transition-transform">arrow_back</span>
-        Back to Directory
+        Back to Events
       </Link>
 
       <div className="mb-10">
-        <h3 className="text-xs font-label uppercase tracking-[0.2em] text-primary mb-2">Secure RSVP</h3>
         <h1 className="text-3xl md:text-5xl font-serif text-on-surface leading-tight mb-4">{event.title}</h1>
         <div className="flex items-center gap-3 text-[10px] font-label uppercase tracking-widest font-bold text-on-surface-variant">
            <span className="text-on-surface">{event.date}</span>
@@ -94,11 +93,11 @@ const EventRegistration = () => {
             
             <div className="space-y-4">
               <div>
-                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Grandmaster Name (Full Name)</label>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">Full Name</label>
                 <input 
                   type="text" 
                   required
-                  placeholder="e.g. Aryan Verma"
+                  placeholder="e.g. Inesh Aggarwal"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                   className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
@@ -118,14 +117,27 @@ const EventRegistration = () => {
               </div>
 
               <div>
+                <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">IITK Email ID</label>
+                <input 
+                  type="email" 
+                  required
+                  placeholder="e.g. member@iitk.ac.in"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
+                />
+              </div>
+
+              <div>
                 <label className="block text-[10px] font-label uppercase tracking-widest text-on-surface-variant mb-1.5 focus-within:text-primary transition-colors">
-                  Current ELO Rating <span className="text-[9px] text-on-surface-variant/50 ml-1">(Optional)</span>
+                  Contact Number
                 </label>
                 <input 
-                  type="number" 
-                  placeholder="e.g. 1800"
-                  value={formData.rating}
-                  onChange={(e) => setFormData({...formData, rating: e.target.value})}
+                  type="tel" 
+                  required
+                  placeholder="e.g. +91 9876543210"
+                  value={formData.phone}
+                  onChange={(e) => setFormData({...formData, phone: e.target.value})}
                   className="w-full bg-[#131313] border border-[#4d4635]/30 rounded-lg px-4 py-3 text-sm text-on-surface focus:outline-none focus:border-primary transition-colors focus:shadow-[0_0_15px_rgba(212,175,55,0.1)]"
                 />
               </div>

@@ -1,15 +1,26 @@
 import { useState, useEffect, useRef } from 'react';
+import userAvatar from '../assets/inesh.jpeg';
 
 const DEFAULT_PROFILE = {
-  name: "Aryan Verma",
-  handle: "GRANDMASTER_V",
-  avatar: "https://lh3.googleusercontent.com/aida-public/AB6AXuDaAlIqrr8k378NDrG6yLqQm8_fueXgk5fHBbuh-_ahSVxtDMXTYYaEUzzuKUDsNo86BQu3NXY73hAz9aV3L9KIzJfHJsxU5EVXAxNk1wdJge-3tW5C8XSkobeDhig_yfNM5zzDmo8C0HexWJcUumwjOQEvWOm8FZA3c5EZRWEWeRzgZj15SEoERDr3kDntSGYElCKxiv-dApp91iBQahaEUC4GJkmemodr5ry5p5Dl8hkFAaPH9KpUyQT6yggglxuRYhuIcxEP3Do"
+  name: "Inesh Aggarwal",
+  rollNo: "240465",
+  contact: "8437708390",
+  email: "ineshag24@iitk.ac.in",
+  chesscom: "Inesh1612",
+  avatar: userAvatar
 };
 
 const UserProfile = () => {
   const [profile, setProfile] = useState(DEFAULT_PROFILE);
   const [isEditing, setIsEditing] = useState(false);
-  const [participations, setParticipations] = useState([]);
+  const [participations, setParticipations] = useState([{
+    id: "fide_legacy_1",
+    eventId: 999,
+    title: "FIDE Rated Open Rapid Tournament",
+    date: "7th Feb, 2026",
+    time: "Standard",
+    tag: "Tournament"
+  }]);
   const fileInputRef = useRef(null);
 
   useEffect(() => {
@@ -84,42 +95,73 @@ const UserProfile = () => {
                 />
               </div>
               
-              <div className="mt-4 mb-8 w-full flex flex-col items-center">
+              <div className="mt-4 mb-6 w-full flex flex-col items-center">
                 {isEditing ? (
                   <input 
                     type="text" 
                     value={profile.name}
                     onChange={(e) => setProfile({...profile, name: e.target.value})}
                     className="text-3xl font-serif text-center bg-transparent border-b-2 border-primary/50 text-white mb-2 pb-1 focus:outline-none focus:border-primary transition-colors w-full"
-                    placeholder="Grandmaster Name"
+                    placeholder="Full Name"
                   />
                 ) : (
                   <h2 className="text-3xl font-serif text-on-surface mb-2 tracking-tight drop-shadow-md">{profile.name}</h2>
                 )}
-
-                {isEditing ? (
-                  <input 
-                    type="text" 
-                    value={profile.handle}
-                    onChange={(e) => setProfile({...profile, handle: e.target.value})}
-                    className="text-xs text-center font-label tracking-[0.2em] bg-transparent border-b border-outline-variant/30 text-on-surface-variant pb-1 focus:outline-none focus:border-primary transition-colors w-3/4 mx-auto"
-                    placeholder="HANDLE"
-                  />
-                ) : (
-                  <p className="text-primary/70 font-label text-xs tracking-[0.2em]">{profile.handle}</p>
-                )}
               </div>
 
-              {/* Stats Box */}
-              <div className="w-full flex bg-[#131313]/80 rounded-xl mb-8 border border-outline-variant/5 shadow-inner backdrop-blur-md">
-                <div className="flex-1 py-4 border-r border-outline-variant/10 text-center hover:bg-surface-container/50 transition-colors rounded-l-xl">
-                  <p className="text-[9px] text-on-surface-variant uppercase tracking-widest mb-1 font-bold">Standard</p>
-                  <p className="text-2xl font-serif text-primary">2140</p>
-                </div>
-                <div className="flex-1 py-4 text-center hover:bg-surface-container/50 transition-colors rounded-r-xl">
-                  <p className="text-[9px] text-on-surface-variant uppercase tracking-widest mb-1 font-bold">Blitz</p>
-                  <p className="text-2xl font-serif text-[#e5e2e1]">2285</p>
-                </div>
+              {/* User Meta Data Box */}
+              <div className="w-full bg-[#131313]/80 rounded-xl mb-8 border border-outline-variant/5 shadow-inner backdrop-blur-md p-5 py-6">
+                {isEditing ? (
+                  <div className="flex flex-col gap-4">
+                    <input 
+                      type="text" 
+                      value={profile.rollNo}
+                      onChange={(e) => setProfile({...profile, rollNo: e.target.value})}
+                      className="text-[11px] font-label uppercase tracking-widest bg-transparent border-b border-outline-variant/30 text-on-surface pb-1 focus:outline-none focus:border-primary w-full transition-colors text-center"
+                      placeholder="Roll Number"
+                    />
+                    <input 
+                      type="text" 
+                      value={profile.contact}
+                      onChange={(e) => setProfile({...profile, contact: e.target.value})}
+                      className="text-[11px] font-label uppercase tracking-widest bg-transparent border-b border-outline-variant/30 text-on-surface pb-1 focus:outline-none focus:border-primary w-full transition-colors text-center"
+                      placeholder="Contact Number"
+                    />
+                    <input 
+                      type="email" 
+                      value={profile.email}
+                      onChange={(e) => setProfile({...profile, email: e.target.value})}
+                      className="text-[11px] font-label uppercase tracking-widest bg-transparent border-b border-outline-variant/30 text-on-surface pb-1 focus:outline-none focus:border-primary w-full transition-colors text-center"
+                      placeholder="IITK Email ID"
+                    />
+                    <input 
+                      type="text" 
+                      value={profile.chesscom}
+                      onChange={(e) => setProfile({...profile, chesscom: e.target.value})}
+                      className="text-[11px] font-label uppercase tracking-widest bg-transparent border-b border-outline-variant/30 text-primary pb-1 focus:outline-none focus:border-primary w-full transition-colors text-center"
+                      placeholder="Chess.com ID"
+                    />
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-4">
+                    <div className="flex justify-between items-center text-left">
+                      <span className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Roll No</span>
+                      <span className="text-[11px] text-on-surface font-mono">{profile.rollNo || "-"}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-left">
+                      <span className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Contact</span>
+                      <span className="text-[11px] text-on-surface font-mono">{profile.contact || "-"}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-left">
+                      <span className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Email</span>
+                      <span className="text-[11px] text-on-surface font-mono flex-shrink truncate max-w-[140px]">{profile.email || "-"}</span>
+                    </div>
+                    <div className="flex justify-between items-center text-left pt-2 border-t border-outline-variant/10">
+                      <span className="text-[10px] uppercase tracking-widest text-on-surface-variant font-bold">Chess.com</span>
+                      <span className="text-xs text-primary font-mono tracking-widest">{profile.chesscom || "-"}</span>
+                    </div>
+                  </div>
+                )}
               </div>
 
               {isEditing ? (
@@ -144,7 +186,7 @@ const UserProfile = () => {
         {/* Right Column: Ledger */}
         <div className="lg:col-span-8">
           <div className="flex items-center justify-between mb-8 pb-4 border-b border-outline-variant/15">
-            <h3 className="text-2xl font-serif text-on-surface">The Personal Ledger</h3>
+            <h3 className="text-2xl font-serif text-on-surface">Past Participations</h3>
           </div>
 
           <div className="space-y-4">
@@ -156,11 +198,7 @@ const UserProfile = () => {
             ) : (
               participations.map((part, idx) => (
                 <div key={part.id || idx} className="grid grid-cols-12 gap-4 items-center bg-[#1c1b1b] rounded-xl p-4 md:p-6 border border-[#4d4635]/10 hover:border-primary/30 transition-colors cursor-pointer group shadow-sm">
-                  <div className="col-span-3 md:col-span-2 text-center md:border-r border-outline-variant/10 relative">
-                    <span className="block text-[10px] uppercase text-on-surface-variant tracking-widest mb-1">Status</span>
-                    <span className="text-sm font-label font-bold text-primary">CONFIRMED</span>
-                  </div>
-                  <div className="col-span-9 md:col-span-6 flex items-center gap-4 px-0 md:px-4">
+                  <div className="col-span-12 md:col-span-8 flex items-center gap-4 px-0 md:px-2">
                     <div className="w-10 h-10 flex-shrink-0 flex items-center justify-center bg-surface-container-highest rounded-full border border-outline-variant/20 shadow-inner">
                         <span className="material-symbols-outlined text-on-surface-variant">
                           {part.tag === 'Tournament' ? 'emoji_events' : part.tag === 'Workshop' ? 'school' : 'local_play'}

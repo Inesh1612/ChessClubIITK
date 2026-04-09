@@ -2,15 +2,68 @@ import { useState, useEffect } from 'react';
 import AddEventModal from '../components/AddEventModal';
 import ViewDayModal from '../components/ViewDayModal';
 
-// Starting month matches our design references (October 2024 matters for demo fidelity)
+// Timeline events spanning the 2026-27 tenure
 const PRE_SCHEDULED_EVENTS = [
-  { id: 'pre-1', type: 'workshop', title: 'Beginner Workshop', location: 'LHC 201', time: '18:00', date: '2024-10-08' },
-  { id: 'pre-2', type: 'tournament', title: 'Inter-IIT Selection Trials', location: 'SAC', time: 'All Day', date: '2024-10-16' },
-  { id: 'pre-3', type: 'tournament', title: 'Grandmaster Blitz Tournament', location: 'Auditorium', time: '14:00', date: '2024-10-25' }
+  // May 2026
+  { id: 'pre-1', type: 'workshop', title: 'Interviews', location: 'Online/Offline', time: 'TBD', date: '2026-05-22' },
+  { id: 'pre-2', type: 'workshop', title: 'Secy Tasks & Results', location: 'Online', time: 'TBD', date: '2026-05-25' },
+  
+  // June 2026
+  { id: 'pre-3', type: 'workshop', title: 'Secy Recruitment & All-Team Meet', location: 'Online', time: 'TBD', date: '2026-06-05' },
+  { id: 'pre-4', type: 'tournament', title: 'IITK Crazyhouse Chess Championship', location: 'chess.com', time: 'TBD', date: '2026-06-20' },
+  
+  // July 2026
+  { id: 'pre-5', type: 'workshop', title: 'Orientation PPT & Intro Video', location: 'Online', time: 'TBD', date: '2026-07-15' },
+  { id: 'pre-6', type: 'tournament', title: 'International Chess Day Arena', location: 'chess.com', time: 'TBD', date: '2026-07-20' },
+  
+  // August 2026
+  { id: 'pre-7', type: 'tournament', title: 'League of Legends 6.0', location: 'Online', time: 'TBD', date: '2026-08-07' },
+  { id: 'pre-8', type: 'tournament', title: 'Candidates Start', location: 'chess.com', time: 'TBD', date: '2026-08-19' },
+  { id: 'pre-9', type: 'tournament', title: "Fresher's Chess League", location: 'Online', time: 'TBD', date: '2026-08-21' },
+  
+  // September 2026
+  { id: 'pre-10', type: 'tournament', title: 'Candidates End', location: 'Online', time: 'TBD', date: '2026-09-04' },
+  { id: 'pre-11', type: 'tournament', title: 'Twisted Boards', location: 'Online', time: 'TBD', date: '2026-09-05' },
+  { id: 'pre-12', type: 'tournament', title: 'IITK Chess Championship Starts', location: 'TBD', time: 'TBD', date: '2026-09-22' },
+  { id: 'pre-13', type: 'workshop', title: '1st Secy Review', location: 'TBD', time: 'TBD', date: '2026-09-26' },
+  
+  // October 2026
+  { id: 'pre-14', type: 'tournament', title: 'IITK Grand Swiss', location: 'TBD', time: 'TBD', date: '2026-10-02' },
+  { id: 'pre-15', type: 'tournament', title: 'IITK Chess Championship Ends', location: 'TBD', time: 'TBD', date: '2026-10-08' },
+  { id: 'pre-16', type: 'workshop', title: 'FIDE Permissions & Designing', location: 'TBD', time: 'TBD', date: '2026-10-15' },
+  { id: 'pre-17', type: 'workshop', title: 'Puzzles Quiz', location: 'TBD', time: 'TBD', date: '2026-10-27' },
+  
+  // November 2026
+  { id: 'pre-18', type: 'workshop', title: 'Endsem Blackout Period Begins', location: 'N/A', time: 'All Day', date: '2026-11-06' },
+  { id: 'pre-19', type: 'workshop', title: 'Endsems', location: 'IITK', time: 'All Day', date: '2026-11-16' },
+  
+  // December 2026
+  { id: 'pre-20', type: 'tournament', title: 'Speed Chess Championship', location: 'Online', time: 'TBD', date: '2026-12-25' },
+  { id: 'pre-21', type: 'workshop', title: 'FIDE Permissions & Designing', location: 'TBD', time: 'TBD', date: '2026-12-28' },
+  
+  // January 2027
+  { id: 'pre-22', type: 'tournament', title: 'FIDE Rated Open Rapid Tournament', location: 'TBD', time: 'TBD', date: '2027-01-09' },
+  { id: 'pre-23', type: 'workshop', title: '2nd Secy Review', location: 'TBD', time: 'TBD', date: '2027-01-15' },
+  { id: 'pre-24', type: 'workshop', title: 'FIDE Bills Clearing', location: 'TBD', time: 'TBD', date: '2027-01-20' },
+  
+  // February 2027
+  { id: 'pre-25', type: 'tournament', title: 'Twisted Boards', location: 'Online', time: 'TBD', date: '2027-02-05' },
+  { id: 'pre-26', type: 'workshop', title: 'Prospective Candidates', location: 'TBD', time: 'TBD', date: '2027-02-15' },
+  
+  // March 2027
+  { id: 'pre-27', type: 'tournament', title: "Queen's Gambit", location: 'TBD', time: 'TBD', date: '2027-03-08' },
+  { id: 'pre-28', type: 'tournament', title: 'Chess Masters Premier League 4.0', location: 'TBD', time: 'TBD', date: '2027-03-15' },
+  { id: 'pre-29', type: 'workshop', title: 'Coordie Interviews', location: 'TBD', time: 'TBD', date: '2027-03-18' },
+  { id: 'pre-30', type: 'workshop', title: '3rd Post Secy Review', location: 'TBD', time: 'TBD', date: '2027-03-20' },
+  { id: 'pre-31', type: 'workshop', title: 'End-Tenure Party', location: 'TBD', time: 'TBD', date: '2027-03-30' },
+  
+  // April 2027
+  { id: 'pre-32', type: 'tournament', title: 'IITK Chess Cup', location: 'TBD', time: 'TBD', date: '2027-04-02' },
+  { id: 'pre-33', type: 'workshop', title: 'End-Term Report', location: 'TBD', time: 'TBD', date: '2027-04-10' }
 ];
 
 const Calendar = () => {
-  const [currentDate, setCurrentDate] = useState(new Date(2024, 9, 1)); // October 2024 for demo purposes
+  const [currentDate, setCurrentDate] = useState(new Date(2026, 4, 1)); // May 2026 initial render for 2026-27 tenure
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isViewModalOpen, setIsViewModalOpen] = useState(false);
