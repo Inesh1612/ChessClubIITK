@@ -1,3 +1,5 @@
+import fresherImg from '../assets/fresher_league_recap_1775765383248.png';
+
 const Landing = () => {
   return (
     <>
@@ -39,46 +41,14 @@ const Landing = () => {
             <cite className="text-sm font-label text-on-surface-variant tracking-widest uppercase">— IITK Grandmaster Series</cite>
           </div>
         </div>
-        <div className="col-span-12 lg:col-span-7 grid grid-cols-2 gap-6">
-          <div className="col-span-2 row-span-1 bg-surface-container-high p-8 rounded-xl relative overflow-hidden group">
-            <div className="relative z-10">
-              <span className="material-symbols-outlined text-primary text-4xl mb-4">workspace_premium</span>
-              <h4 className="text-2xl font-serif mb-2">Inter-IIT Champions</h4>
-              <p className="text-on-surface-variant max-w-sm">Dominating the collegiate circuit for three consecutive years. Our legacy is written in checkmates.</p>
-            </div>
-            <div className="absolute bottom-[-20px] right-[-20px] opacity-10 transform rotate-12 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-[180px]">military_tech</span>
-            </div>
+        <div className="col-span-12 lg:col-span-7 flex flex-wrap gap-6 items-start justify-start mt-8 lg:mt-0 lg:pl-12">
+          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
+            <h5 className="text-3xl font-serif text-primary mb-1">500+</h5>
+            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
           </div>
-          <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2">500+</h5>
-            <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
-          </div>
-          <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2">12k</h5>
-            <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
-          </div>
-          <div className="col-span-2 bg-surface-variant p-1 rounded-sm">
-            <div className="bg-surface-container-lowest p-6 border-l-4 border-primary flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                  <span className="text-[10px] uppercase tracking-widest text-primary">Live Match</span>
-                </div>
-                <h4 className="text-xl font-serif">Main Hall: Qualifier Finals</h4>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-right">
-                  <p className="text-xs text-on-surface-variant">Inesh A.</p>
-                  <p className="font-serif text-primary">2240</p>
-                </div>
-                <div className="flex items-center font-serif text-on-surface-variant/40">vs</div>
-                <div className="text-left">
-                  <p className="text-xs text-on-surface-variant">Siddharth M.</p>
-                  <p className="font-serif text-primary">2185</p>
-                </div>
-              </div>
-            </div>
+          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
+            <h5 className="text-3xl font-serif text-primary mb-1">12k</h5>
+            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
           </div>
         </div>
       </section>
@@ -86,7 +56,7 @@ const Landing = () => {
       <section className="py-24 px-12 lg:px-20 bg-surface-container-lowest">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
           <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative">
-            <img alt="Tournament" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCTgDEr-OU-20kuf-_UJ1FDrXeG3igbCvblxD8sw5SVS7pCvK37T1LV0dnxyFR3rUM6wPxcKZYP0-2MjkLy0I6FlUYtmKu_8M8qmMpiWHTxxfRcpQOpuu-d_IuvhEayaC-eaeIzFwUdycCdA0K-Wi4H2qR-lyGN9sPdLvJ8s9cqB-4u4bIbnv0mZGdMXdXc7syoZQCyaYqVxK_sr3yt0UYXiTJMWsXCAZrcwh_J6W6PELaBa8IFEoQIcLxfF11qVuQqM_eRHQ2Px4"/>
+            <img alt="Tournament" className="w-full h-full object-cover" src={fresherImg}/>
             <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
           </div>
           <div className="w-full md:w-1/2">
