@@ -1,28 +1,4 @@
-import { useAuth } from '../context/AuthContext';
-import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
-import featuredEventImg from '../assets/featured_event.png';
-
-const AnimatedNumber = ({ target, duration = 2000, suffix = '' }) => {
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    let startTimestamp = null;
-    const step = (timestamp) => {
-      if (!startTimestamp) startTimestamp = timestamp;
-      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      // easeOutExpo for a snappy but smooth finish
-      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
-      setCount(Math.floor(easeProgress * target));
-      if (progress < 1) {
-        window.requestAnimationFrame(step);
-      }
-    };
-    window.requestAnimationFrame(step);
-  }, [target, duration]);
-
-  return <>{count}{suffix}</>;
-};
+import fresherImg from '../assets/fresher_league_recap_1775765383248.png';
 
 const Landing = () => {
   const { isLoggedIn } = useAuth();
@@ -30,28 +6,24 @@ const Landing = () => {
     <>
       <section className="relative h-[819px] flex items-center px-12 lg:px-20 overflow-hidden bg-surface-container-lowest">
         <div className="absolute inset-0 z-0">
-          <img alt="Chess Theme" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY"/>
+          <img alt="Chess Theme" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY" />
           <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"></div>
         </div>
-        <motion.div 
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
-          className="relative z-10 max-w-2xl"
-        >
+        <div className="relative z-10 max-w-2xl">
           <h2 className="text-6xl md:text-8xl font-serif italic mb-4 leading-tight">
-              Silence the Noise.<br/>
-              <span className="text-primary">Find the Move.</span>
+            Silence the Noise.<br />
+            <span className="text-primary">Find the Move.</span>
           </h2>
           <p className="text-lg text-on-surface-variant font-body mb-8 max-w-lg leading-relaxed">
-              The intellectual heart of IIT Kanpur. Where tradition meets strategy, and every move is a testament to calculated brilliance. Join the elite echelon of campus thinkers.
+            The intellectual heart of IIT Kanpur. Where tradition meets strategy, and every move is a testament to calculated brilliance. Join the elite echelon of campus thinkers.
           </p>
           <div className="flex items-center gap-6">
-            {!isLoggedIn && (
-              <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
-                  Join the Club
-              </button>
-            )}
+            <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
+              Join the Club
+            </button>
+            <button className="border border-outline-variant/30 text-primary px-10 py-4 font-bold rounded-lg hover:bg-surface-container transition-colors">
+              Explore Ledger
+            </button>
           </div>
         </motion.div>
       </section>
@@ -70,69 +42,25 @@ const Landing = () => {
             <cite className="text-sm font-label text-on-surface-variant tracking-widest uppercase">— IITK Grandmaster Series</cite>
           </div>
         </div>
-        <div className="col-span-12 lg:col-span-7 grid grid-cols-2 gap-6">
-          <div className="col-span-2 row-span-1 bg-surface-container-high p-8 rounded-xl relative overflow-hidden group">
-            <div className="relative z-10">
-              <span className="material-symbols-outlined text-primary text-4xl mb-4">workspace_premium</span>
-              <h4 className="text-2xl font-serif mb-2">Inter-IIT Champions</h4>
-              <p className="text-on-surface-variant max-w-sm">Dominating the collegiate circuit for three consecutive years. Our legacy is written in checkmates.</p>
-            </div>
-            <div className="absolute bottom-[-20px] right-[-20px] opacity-10 transform rotate-12 group-hover:scale-110 transition-transform">
-              <span className="material-symbols-outlined text-[180px]">military_tech</span>
-            </div>
+        <div className="col-span-12 lg:col-span-7 flex flex-wrap gap-6 items-start justify-start mt-8 lg:mt-0 lg:pl-12">
+          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
+            <h5 className="text-3xl font-serif text-primary mb-1">500+</h5>
+            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
           </div>
-          <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2"><AnimatedNumber target={500} suffix="+" /></h5>
-            <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
-          </div>
-          <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2"><AnimatedNumber target={12} suffix="k" /></h5>
-            <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
-          </div>
-          <div className="col-span-2 bg-surface-variant p-1 rounded-sm">
-            <div className="bg-surface-container-lowest p-6 border-l-4 border-primary flex items-center justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <span className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
-                  <span className="text-[10px] uppercase tracking-widest text-primary">Live Match</span>
-                </div>
-                <h4 className="text-xl font-serif">Main Hall: Qualifier Finals</h4>
-              </div>
-              <div className="flex gap-4">
-                <div className="text-right">
-                  <p className="text-xs text-on-surface-variant">Inesh A.</p>
-                  <p className="font-serif text-primary">2240</p>
-                </div>
-                <div className="flex items-center font-serif text-on-surface-variant/40">vs</div>
-                <div className="text-left">
-                  <p className="text-xs text-on-surface-variant">Siddharth M.</p>
-                  <p className="font-serif text-primary">2185</p>
-                </div>
-              </div>
-            </div>
+          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
+            <h5 className="text-3xl font-serif text-primary mb-1">12k</h5>
+            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
           </div>
         </div>
       </section>
 
-      <motion.section 
-        initial={{ opacity: 0, y: 50 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, amount: 0.2 }}
-        transition={{ duration: 1 }}
-        className="py-24 px-12 lg:px-20 bg-surface-container-lowest"
-      >
+      <section className="py-24 px-12 lg:px-20 bg-surface-container-lowest">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-          <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative group">
-            <img alt="Tournament" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" src={featuredEventImg}/>
+          <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative">
+            <img alt="Tournament" className="w-full h-full object-cover" src={fresherImg} />
             <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
           </div>
-          <motion.div 
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 1, delay: 0.3 }}
-            className="w-full md:w-1/2"
-          >
+          <div className="w-full md:w-1/2">
             <h3 className="text-xs font-label text-primary tracking-[0.4em] uppercase mb-4">Next Event</h3>
             <h2 className="text-5xl font-serif mb-6 italic">Fresher's Chess League</h2>
             <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">Experience the thrill of OTB chess! An exclusive 8-player team tournament kicking off with live offline auctions. Fight through the group pools to secure the top knockout spots!</p>
