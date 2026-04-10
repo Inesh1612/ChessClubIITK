@@ -64,6 +64,7 @@ export default {
       },
       "fontFamily": {
           "headline": ["Newsreader", "serif"],
+          "display": ["Bebas Neue", "sans-serif"],
           "body": ["Manrope", "sans-serif"],
           "label": ["Manrope", "sans-serif"]
       }

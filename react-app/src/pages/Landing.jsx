@@ -1,29 +1,55 @@
 import fresherImg from '../assets/fresher_league_recap_1775765383248.png';
+import { useAuth } from '../context/AuthContext';
+import { motion } from 'framer-motion';
+import SliderMaskText from '../components/SliderMaskText';
 
 const Landing = () => {
   const { isLoggedIn } = useAuth();
   return (
     <>
-      <section className="relative h-[819px] flex items-center px-12 lg:px-20 overflow-hidden bg-surface-container-lowest">
+      {/* Section 1: Brand Intro */}
+      <section className="relative h-[80vh] flex items-center justify-center px-12 lg:px-20 overflow-hidden bg-surface-container">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,_var(--tw-gradient-from)_0%,_transparent_70%)] from-primary/5 to-transparent"></div>
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="relative z-10 w-full text-center"
+        >
+          <SliderMaskText 
+            text={`CHESS CLUB\nIITK`}
+            image="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY"
+            className="text-7xl md:text-[14rem] font-bold tracking-tighter leading-[0.85] brightness-125 saturate-150"
+          />
+        </motion.div>
+      </section>
+
+      {/* Section 2: Core Slogan */}
+      <section className="relative min-h-screen flex items-center justify-center px-12 lg:px-20 overflow-hidden bg-surface-container-lowest">
         <div className="absolute inset-0 z-0">
-          <img alt="Chess Theme" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY" />
-          <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"></div>
+          <img alt="Chess Theme" className="w-full h-full object-cover opacity-30 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY" />
+          <div className="absolute inset-0 bg-gradient-to-b from-surface-container-lowest via-surface/40 to-surface"></div>
         </div>
-        <div className="relative z-10 max-w-2xl">
-          <h2 className="text-6xl md:text-8xl font-serif italic mb-4 leading-tight">
+        
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95 }}
+          whileInView={{ opacity: 1, scale: 1 }}
+          viewport={{ once: true }}
+          className="relative z-10 max-w-4xl mx-auto text-center flex flex-col items-center"
+        >
+          <h2 className="text-6xl md:text-8xl font-serif italic mb-8 leading-tight">
             Silence the Noise.<br />
             <span className="text-primary">Find the Move.</span>
           </h2>
-          <p className="text-lg text-on-surface-variant font-body mb-8 max-w-lg leading-relaxed">
+          <p className="text-lg text-on-surface-variant font-body mb-10 max-w-lg leading-relaxed mx-auto text-center">
             The intellectual heart of IIT Kanpur. Where tradition meets strategy, and every move is a testament to calculated brilliance. Join the elite echelon of campus thinkers.
           </p>
-          <div className="flex items-center gap-6">
-            <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
-              Join the Club
-            </button>
-            <button className="border border-outline-variant/30 text-primary px-10 py-4 font-bold rounded-lg hover:bg-surface-container transition-colors">
-              Explore Ledger
-            </button>
+          <div className="flex items-center justify-center gap-6">
+            {!isLoggedIn && (
+              <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
+                Join the Club
+              </button>
+            )}
           </div>
         </motion.div>
       </section>
@@ -43,24 +69,16 @@ const Landing = () => {
           </div>
         </div>
         <div className="col-span-12 lg:col-span-7 flex flex-wrap gap-6 items-start justify-start mt-8 lg:mt-0 lg:pl-12">
-          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
-            <h5 className="text-3xl font-serif text-primary mb-1">500+</h5>
-            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
-          </div>
-          <div className="bg-surface-container p-6 rounded-xl border-b-2 border-transparent hover:border-primary transition-all min-w-[180px]">
-            <h5 className="text-3xl font-serif text-primary mb-1">12k</h5>
-            <p className="text-xs font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
-          </div>
         </div>
       </section>
 
-      <section className="py-24 px-12 lg:px-20 bg-surface-container-lowest">
+      <motion.section className="py-24 px-12 lg:px-20 bg-surface-container-lowest">
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
           <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative">
             <img alt="Tournament" className="w-full h-full object-cover" src={fresherImg} />
             <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
           </div>
-          <div className="w-full md:w-1/2">
+          <motion.div className="w-full md:w-1/2">
             <h3 className="text-xs font-label text-primary tracking-[0.4em] uppercase mb-4">Next Event</h3>
             <h2 className="text-5xl font-serif mb-6 italic">Fresher's Chess League</h2>
             <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">Experience the thrill of OTB chess! An exclusive 8-player team tournament kicking off with live offline auctions. Fight through the group pools to secure the top knockout spots!</p>

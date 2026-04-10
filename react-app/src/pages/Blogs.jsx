@@ -52,7 +52,7 @@ const Blogs = () => {
   }, []);
 
   return (
-    <div className="px-12 pb-20 max-w-7xl">
+    <div className="px-12 pb-20 max-w-7xl mx-auto">
       <section className="relative mb-20 group mt-8">
         <div className="grid grid-cols-12 gap-0 overflow-hidden rounded-xl bg-surface-container-low border border-[#4d4635]/10">
           <div className="col-span-12 lg:col-span-7 h-[500px] overflow-hidden">
@@ -84,7 +84,7 @@ const Blogs = () => {
         </div>
       </section>
 
-      <div className="flex items-end justify-between mb-12">
+      <div className={`flex items-end justify-between mb-12 ${viewMode === 'list' ? 'max-w-4xl mx-auto' : ''}`}>
         <div>
           <h3 className="text-xs font-label uppercase tracking-[0.2em] text-primary mb-2">The Archive</h3>
           <h4 className="text-4xl font-serif font-bold">Latest Dispatches</h4>
@@ -105,7 +105,7 @@ const Blogs = () => {
         </div>
       </div>
 
-      <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" : "flex flex-col space-y-6 max-w-4xl"}>
+      <div className={viewMode === 'grid' ? "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" : "flex flex-col space-y-6 max-w-4xl mx-auto"}>
         {BLOG_POSTS.map(post => (
           <Link key={post.id} to={`/blog/${post.id}`} className={`flex bg-surface-container-low group cursor-pointer border border-transparent hover:border-outline-variant/20 transition-all duration-300 ${viewMode === 'grid' ? 'flex-col' : 'flex-col md:flex-row'}`}>
             <div className={`overflow-hidden relative ${viewMode === 'grid' ? 'h-64' : 'h-48 md:h-full md:w-64 flex-shrink-0'}`}>
@@ -129,7 +129,7 @@ const Blogs = () => {
         ))}
       </div>
 
-      <footer className="bg-surface-container-lowest py-16 px-12 border-t border-outline-variant/10 mt-20 -mx-12 -mb-20">
+      <footer className="bg-surface-container-lowest py-16 px-12 border-t border-outline-variant/10 mt-20 relative before:content-[''] before:absolute before:inset-0 before:bg-surface-container-lowest before:-mx-[100vw] before:z-[-1]">
         <div className="flex flex-col md:flex-row justify-between items-start">
           <div className="max-w-xs mb-10 md:mb-0">
             <h6 className="text-xl font-serif italic text-primary mb-4">Chess Club IITK</h6>

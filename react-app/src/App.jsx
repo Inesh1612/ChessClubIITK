@@ -10,6 +10,7 @@ import Blogs from './pages/Blogs';
 import BlogPost from './pages/BlogPost';
 import UserProfile from './pages/UserProfile';
 import Contact from './pages/Contact';
+import Gallery from './pages/Gallery';
 import Login from './pages/Login';
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
             <Route path="/blogs" element={<Blogs />} />
             <Route path="/blog/:id" element={<BlogPost />} />
             <Route path="/contact" element={<Contact />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route path="/user" element={<UserProfile />} />
             <Route path="/login" element={<Login />} />
           </Routes>

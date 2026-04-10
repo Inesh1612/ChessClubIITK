@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 
 export const OFFICIAL_EVENTS = [
   {
@@ -53,6 +54,7 @@ export const OFFICIAL_EVENTS = [
 ];
 
 const Events = () => {
+  const { isLoggedIn } = useAuth();
   const [expandedId, setExpandedId] = useState(null);
 
   const toggleExpand = (id) => {
@@ -144,12 +146,14 @@ const Events = () => {
                            <p className="text-sm text-primary font-bold">{event.prizes}</p>
                         </div>
                         
-                        <Link 
-                          to={`/events/register/${event.id}`}
-                          className="w-full block text-center bg-gradient-to-r from-[#f2ca50] to-[#d4af37] text-[#3c2f00] font-bold py-3.5 rounded-lg text-xs uppercase tracking-widest hover:scale-[1.02] shadow-lg transition-transform outline-none mt-4"
-                        >
-                          Register
-                        </Link>
+                        {isLoggedIn && (
+                          <Link 
+                            to={`/events/register/${event.id}`}
+                            className="w-full block text-center bg-gradient-to-r from-[#f2ca50] to-[#d4af37] text-[#3c2f00] font-bold py-3.5 rounded-lg text-xs uppercase tracking-widest hover:scale-[1.02] shadow-lg transition-transform outline-none mt-4"
+                          >
+                            Register
+                          </Link>
+                        )}
                       </div>
 
                     </div>
