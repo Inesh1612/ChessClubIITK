@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import AddEventModal from '../components/AddEventModal';
 import ViewDayModal from '../components/ViewDayModal';
+import { useAuth } from '../context/AuthContext';
 
 // Timeline events spanning the 2026-27 tenure
 const PRE_SCHEDULED_EVENTS = [
@@ -63,6 +64,7 @@ const PRE_SCHEDULED_EVENTS = [
 ];
 
 const Calendar = () => {
+  const { isLoggedIn } = useAuth();
   const [currentDate, setCurrentDate] = useState(new Date(2026, 4, 1)); // May 2026 initial render for 2026-27 tenure
   const [events, setEvents] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -113,7 +115,7 @@ const Calendar = () => {
       (e.type === 'tournament' && showTournaments) || 
       (e.type === 'workshop' && showWorkshops)
     ) : []),
-    ...(showMatches ? events : [])
+    ...(showMatches && isLoggedIn ? events : [])
   ];
 
   const handlePrevMonth = () => {
@@ -209,7 +211,7 @@ const Calendar = () => {
                     {cell.day}
                   </span>
                   
-                  {isCurrent && (
+                  {isCurrent && isLoggedIn && (
                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                          <button 
                             onClick={(e) => {
@@ -273,15 +275,17 @@ const Calendar = () => {
                 </div>
                 <span className="text-xs text-on-surface group-hover:text-[#e5e2e1] transition-colors">Club Workshops</span>
               </label>
-              <label 
-                className="flex items-center gap-3 cursor-pointer group"
-                onClick={() => setShowMatches(!showMatches)}
-              >
-                <div className={`w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors ${showMatches ? 'border border-blue-400 bg-blue-400' : 'border border-outline-variant bg-transparent'}`}>
-                  {showMatches && <span className="material-symbols-outlined text-[10px] text-black">check</span>}
-                </div>
-                <span className="text-xs text-on-surface group-hover:text-blue-400 transition-colors">Your Matches</span>
-              </label>
+              {isLoggedIn && (
+                <label 
+                  className="flex items-center gap-3 cursor-pointer group"
+                  onClick={() => setShowMatches(!showMatches)}
+                >
+                  <div className={`w-3.5 h-3.5 rounded-sm flex items-center justify-center transition-colors ${showMatches ? 'border border-blue-400 bg-blue-400' : 'border border-outline-variant bg-transparent'}`}>
+                    {showMatches && <span className="material-symbols-outlined text-[10px] text-black">check</span>}
+                  </div>
+                  <span className="text-xs text-on-surface group-hover:text-blue-400 transition-colors">Your Matches</span>
+                </label>
+              )}
             </div>
           </div>
 
@@ -298,13 +302,15 @@ const Calendar = () => {
         </div>
       </div>
       
-      <button 
-        onClick={handleScheduleClick}
-        className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center group hover:scale-110 transition-all z-50 outline-none"
-      >
-        <span className="material-symbols-outlined text-2xl">add</span>
-        <span className="absolute right-16 bg-surface-container-highest text-[#e5e2e1] px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20 pointer-events-none whitespace-nowrap">Schedule Match</span>
-      </button>
+      {isLoggedIn && (
+        <button 
+          onClick={handleScheduleClick}
+          className="fixed bottom-8 right-8 w-14 h-14 rounded-full bg-primary text-on-primary shadow-2xl flex items-center justify-center group hover:scale-110 transition-all z-50 outline-none"
+        >
+          <span className="material-symbols-outlined text-2xl">add</span>
+          <span className="absolute right-16 bg-surface-container-highest text-[#e5e2e1] px-3 py-1.5 rounded-lg text-[10px] uppercase tracking-widest opacity-0 group-hover:opacity-100 transition-opacity border border-outline-variant/20 pointer-events-none whitespace-nowrap">Schedule Match</span>
+        </button>
+      )}
 
       <AddEventModal 
         isOpen={isModalOpen}

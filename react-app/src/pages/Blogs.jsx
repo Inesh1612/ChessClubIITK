@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import fresherImg from '../assets/fresher_league_recap_1775765383248.png';
 import grandSwissImg from '../assets/grand_swiss_recap_1775765397656.png';
@@ -37,6 +37,19 @@ const BLOG_POSTS = [
 
 const Blogs = () => {
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
+  
+  const featuredDescription = "Recapping the absolute hype surrounding the offline auctions in the Senate Hall, analyzing the intense Round Robin pool matches at the OAT, and spotlighting the brilliant knockout blunders that ultimately led the underdogs to gold memberships.";
+  const [displayedDesc, setDisplayedDesc] = useState("");
+
+  useEffect(() => {
+    let index = 0;
+    const interval = setInterval(() => {
+      setDisplayedDesc(featuredDescription.slice(0, index));
+      index++;
+      if (index > featuredDescription.length) clearInterval(interval);
+    }, 15);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="px-12 pb-20 max-w-7xl">
@@ -51,8 +64,9 @@ const Blogs = () => {
               <span className="text-on-surface-variant/40 text-[10px] font-label uppercase">8 Min Read</span>
             </div>
             <h2 className="text-5xl font-serif font-bold leading-tight mb-6 text-on-surface">Fresher's Chess League 2026: An Absolute Thriller!</h2>
-            <p className="text-on-surface-variant font-body leading-relaxed mb-8 text-sm">
-              Recapping the absolute hype surrounding the offline auctions in the Senate Hall, analyzing the intense Round Robin pool matches at the OAT, and spotlighting the brilliant knockout blunders that ultimately led the underdogs to gold memberships.
+            <p className="text-on-surface-variant font-body leading-relaxed mb-8 text-sm min-h-[80px]">
+              {displayedDesc}
+              <span className="animate-pulse border-r-2 border-primary ml-[2px] h-[1em] inline-block -mb-[2px]"></span>
             </p>
             <div className="flex items-center justify-between mt-auto">
               <div className="flex items-center space-x-3">

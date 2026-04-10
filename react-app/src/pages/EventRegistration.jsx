@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
+import confetti from 'canvas-confetti';
 import { OFFICIAL_EVENTS } from './Events';
 
 const EventRegistration = () => {
@@ -45,6 +46,12 @@ const EventRegistration = () => {
     setTimeout(() => {
       setIsSubmitting(false);
       setIsSubmitted(true);
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#f2ca50', '#d4af37', '#ffffff', '#1c1b1b'] 
+      });
     }, 800);
   };
 

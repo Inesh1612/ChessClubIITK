@@ -1,7 +1,19 @@
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
 import logo from '../assets/chessclubiitklogo.jpeg';
+import { useAuth } from '../context/AuthContext';
 
 const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
+  const { isLoggedIn, login, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleAuthClick = () => {
+    if (isLoggedIn) {
+      logout();
+      navigate('/');
+    } else {
+      navigate('/login');
+    }
+  };
   return (
     <aside className={`bg-[#1c1b1b] h-screen fixed left-0 top-0 border-r border-[#4d4635]/15 shadow-[32px_0_32px_rgba(0,0,0,0.06)] flex flex-col py-8 z-50 transition-all duration-300 ${isCollapsed ? 'w-20 px-2' : 'w-64 px-6'}`}>
       
@@ -60,20 +72,28 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
           </div>
         </NavLink>
 
-        <NavLink to="/user" className={({ isActive }) => `flex items-center gap-4 py-3 rounded-lg transition-colors duration-300 ${isCollapsed ? 'justify-center px-0 mx-2' : 'pl-4'} ${isActive && !isCollapsed ? 'text-[#f2ca50] font-bold border-l-4 border-[#D4AF37] bg-[#201f1f]/50' : isActive && isCollapsed ? 'text-[#f2ca50] font-bold bg-[#201f1f]/50' : 'text-[#e5e2e1]/60 font-medium hover:bg-[#201f1f] hover:text-[#f2ca50]'}`}>
-          <span className="material-symbols-outlined shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
-          <div className={`transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100'}`}>
-            <span className="text-sm tracking-wide truncate">User</span>
-          </div>
-        </NavLink>
+        {isLoggedIn && (
+          <NavLink to="/user" className={({ isActive }) => `flex items-center gap-4 py-3 rounded-lg transition-colors duration-300 ${isCollapsed ? 'justify-center px-0 mx-2' : 'pl-4'} ${isActive && !isCollapsed ? 'text-[#f2ca50] font-bold border-l-4 border-[#D4AF37] bg-[#201f1f]/50' : isActive && isCollapsed ? 'text-[#f2ca50] font-bold bg-[#201f1f]/50' : 'text-[#e5e2e1]/60 font-medium hover:bg-[#201f1f] hover:text-[#f2ca50]'}`}>
+            <span className="material-symbols-outlined shrink-0" style={{ fontVariationSettings: "'FILL' 1" }}>person</span>
+            <div className={`transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100 flex items-center justify-between flex-1 pr-4'}`}>
+              <span className="text-sm tracking-wide truncate">User</span>
+              <div className="flex items-center gap-1.5 ml-2">
+                <span className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_8px_rgba(34,197,94,0.6)]"></span>
+              </div>
+            </div>
+          </NavLink>
+        )}
       </nav>
 
       <div className="mt-auto space-y-4 pt-8">
         <div className="pt-6 space-y-1 relative">
-          <button className={`flex items-center gap-4 text-[#e5e2e1]/60 font-medium py-2 hover:text-error transition-colors w-full rounded-lg ${isCollapsed ? 'justify-center px-0 mx-2 hover:bg-[#201f1f]' : 'pl-4 text-left hover:bg-[#201f1f]'}`}>
-            <span className="material-symbols-outlined text-xl shrink-0">logout</span>
+          <button 
+            onClick={handleAuthClick}
+            className={`flex items-center gap-4 text-[#e5e2e1]/60 font-medium py-2 transition-colors w-full rounded-lg ${isLoggedIn ? 'hover:text-error' : 'hover:text-primary'} ${isCollapsed ? 'justify-center px-0 mx-2 hover:bg-[#201f1f]' : 'pl-4 text-left hover:bg-[#201f1f]'}`}
+          >
+            <span className="material-symbols-outlined text-xl shrink-0">{isLoggedIn ? 'logout' : 'login'}</span>
             <div className={`transition-all duration-300 ${isCollapsed ? 'w-0 opacity-0 hidden' : 'w-auto opacity-100'}`}>
-                <span className="text-xs truncate">Log Out</span>
+                <span className="text-xs truncate">{isLoggedIn ? 'Log Out' : 'Log In'}</span>
             </div>
           </button>
         </div>

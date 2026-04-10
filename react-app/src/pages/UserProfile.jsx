@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import userAvatar from '../assets/inesh.jpeg';
+import userAvatar from '../assets/new_user_avatar.png';
 
 const DEFAULT_PROFILE = {
   name: "Inesh Aggarwal",

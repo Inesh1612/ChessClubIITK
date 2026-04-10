@@ -38,19 +38,31 @@ const SECRETARIES = Array.from({ length: 20 }, (_, i) => ({
 }));
 
 const ContactCard = ({ person }) => (
-  <div className="flex flex-col bg-surface-container-low group cursor-pointer border border-transparent hover:border-outline-variant/20 transition-all duration-300 rounded-lg overflow-hidden h-full">
-    <div className="overflow-hidden relative h-64 flex-shrink-0">
-      <img alt={person.name} className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 grayscale group-hover:grayscale-0" src={person.image} />
-      <div className="absolute top-4 left-4">
-        <span className="bg-surface/80 backdrop-blur-md px-3 py-1 text-[9px] font-label tracking-widest uppercase text-on-surface rounded-sm">{person.role}</span>
+  <div className="group relative bg-surface-container-low rounded-2xl overflow-hidden shadow-lg hover:shadow-[0_20px_40px_rgba(242,202,80,0.15)] transition-all duration-500 hover:-translate-y-2 flex flex-col h-full border border-outline-variant/5 hover:border-primary/30 cursor-pointer">
+    <div className="relative h-72 overflow-hidden flex-shrink-0">
+      <img 
+        alt={person.name} 
+        className="w-full h-full object-cover transition-transform duration-700 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:scale-110 grayscale-[0.6] group-hover:grayscale-0" 
+        src={person.image} 
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/40 to-transparent transition-opacity duration-500 opacity-90 group-hover:opacity-60"></div>
+      
+      <div className="absolute top-4 left-4 z-20">
+        <span className="bg-surface-container-highest/80 backdrop-blur-md border border-outline-variant/20 px-3 py-1 text-[9px] font-bold tracking-[0.2em] uppercase text-on-surface rounded-full shadow-lg transition-colors group-hover:bg-primary group-hover:text-on-primary group-hover:border-primary">{person.role}</span>
+      </div>
+
+      <div className="absolute bottom-0 left-0 w-full p-6 translate-y-6 group-hover:translate-y-0 transition-transform duration-500 ease-out z-20">
+        <h5 className="text-2xl font-serif font-bold text-on-surface mb-1 drop-shadow-md group-hover:text-primary transition-colors duration-300">{person.name}</h5>
+        <a href={`mailto:${person.email}`} className="text-[11px] font-mono text-primary hover:text-primary/70 transition-colors tracking-wider block opacity-0 group-hover:opacity-100 duration-500 delay-100 ease-out">{person.email}</a>
       </div>
     </div>
-    <div className="flex flex-col flex-grow p-6 text-center">
-      <h5 className="text-xl font-serif font-bold mb-1 group-hover:text-primary transition-colors">{person.name}</h5>
-      <a href={`mailto:${person.email}`} className="text-[10px] font-mono text-primary/80 hover:text-primary transition-colors mb-3 tracking-wider block hover:underline">{person.email}</a>
-      <p className="text-sm text-on-surface-variant italic leading-relaxed mb-4">
-        {person.funnyDescription}
-      </p>
+    
+    <div className="p-6 pt-5 bg-surface-container-lowest flex-grow flex flex-col justify-between relative overflow-hidden border-t border-outline-variant/10">
+        {/* Subtle decorative quote mark */}
+        <span className="absolute -bottom-8 -right-4 text-9xl font-serif text-on-surface-variant/5 italic select-none group-hover:text-primary/5 transition-colors duration-500">"</span>
+        <p className="text-sm text-on-surface-variant italic leading-relaxed relative z-10 group-hover:text-on-surface/90 transition-colors duration-500">
+            {person.funnyDescription}
+        </p>
     </div>
   </div>
 );

@@ -1,4 +1,31 @@
+import { useAuth } from '../context/AuthContext';
+import { useState, useEffect } from 'react';
+import { motion } from 'framer-motion';
+import featuredEventImg from '../assets/featured_event.png';
+
+const AnimatedNumber = ({ target, duration = 2000, suffix = '' }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      // easeOutExpo for a snappy but smooth finish
+      const easeProgress = progress === 1 ? 1 : 1 - Math.pow(2, -10 * progress);
+      setCount(Math.floor(easeProgress * target));
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  }, [target, duration]);
+
+  return <>{count}{suffix}</>;
+};
+
 const Landing = () => {
+  const { isLoggedIn } = useAuth();
   return (
     <>
       <section className="relative h-[819px] flex items-center px-12 lg:px-20 overflow-hidden bg-surface-container-lowest">
@@ -6,7 +33,12 @@ const Landing = () => {
           <img alt="Chess Theme" className="w-full h-full object-cover opacity-40 mix-blend-luminosity" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA0XUbyKBzENztVgAh6aESgPIC7XwA0lM9Q5EAQXcIzg4K-uwUBFeK--nCT2BIF19Gy98hGFmduCbjU072Gs6wdSSffKreD381eR-dywqyhYu7_qmk5xQpofN0NjZs2AK6MejHEcg0bm94T-rOPLlR9K-MLzX0fAoS7VP9rJUegBfctXasuLza8dxMuBk5h6mezyvE40_gQYvLiBnaZbkmtDz9LSZi8ggzl3Vv4cRH8E8pKetxseMMRcRgWk07GqrG9EO9M1HwvhmY"/>
           <div className="absolute inset-0 bg-gradient-to-r from-surface via-surface/60 to-transparent"></div>
         </div>
-        <div className="relative z-10 max-w-2xl">
+        <motion.div 
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut", delay: 0.2 }}
+          className="relative z-10 max-w-2xl"
+        >
           <h2 className="text-6xl md:text-8xl font-serif italic mb-4 leading-tight">
               Silence the Noise.<br/>
               <span className="text-primary">Find the Move.</span>
@@ -15,14 +47,13 @@ const Landing = () => {
               The intellectual heart of IIT Kanpur. Where tradition meets strategy, and every move is a testament to calculated brilliance. Join the elite echelon of campus thinkers.
           </p>
           <div className="flex items-center gap-6">
-            <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
-                Join the Club
-            </button>
-            <button className="border border-outline-variant/30 text-primary px-10 py-4 font-bold rounded-lg hover:bg-surface-container transition-colors">
-                Explore Ledger
-            </button>
+            {!isLoggedIn && (
+              <button className="primary-gradient text-on-primary px-10 py-4 font-bold rounded-lg shadow-[0_10px_30px_rgba(212,175,55,0.2)] hover:scale-105 transition-transform">
+                  Join the Club
+              </button>
+            )}
           </div>
-        </div>
+        </motion.div>
       </section>
 
       <section className="py-24 px-12 lg:px-20 grid grid-cols-12 gap-8">
@@ -51,11 +82,11 @@ const Landing = () => {
             </div>
           </div>
           <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2">500+</h5>
+            <h5 className="text-4xl font-serif text-primary mb-2"><AnimatedNumber target={500} suffix="+" /></h5>
             <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Active Members</p>
           </div>
           <div className="bg-surface-container p-8 rounded-xl border-b-2 border-transparent hover:border-primary transition-all">
-            <h5 className="text-4xl font-serif text-primary mb-2">12k</h5>
+            <h5 className="text-4xl font-serif text-primary mb-2"><AnimatedNumber target={12} suffix="k" /></h5>
             <p className="text-sm font-label uppercase tracking-widest text-on-surface-variant">Matches Recorded</p>
           </div>
           <div className="col-span-2 bg-surface-variant p-1 rounded-sm">
@@ -83,13 +114,25 @@ const Landing = () => {
         </div>
       </section>
 
-      <section className="py-24 px-12 lg:px-20 bg-surface-container-lowest">
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 1 }}
+        className="py-24 px-12 lg:px-20 bg-surface-container-lowest"
+      >
         <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
-          <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative">
-            <img alt="Tournament" className="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBCTgDEr-OU-20kuf-_UJ1FDrXeG3igbCvblxD8sw5SVS7pCvK37T1LV0dnxyFR3rUM6wPxcKZYP0-2MjkLy0I6FlUYtmKu_8M8qmMpiWHTxxfRcpQOpuu-d_IuvhEayaC-eaeIzFwUdycCdA0K-Wi4H2qR-lyGN9sPdLvJ8s9cqB-4u4bIbnv0mZGdMXdXc7syoZQCyaYqVxK_sr3yt0UYXiTJMWsXCAZrcwh_J6W6PELaBa8IFEoQIcLxfF11qVuQqM_eRHQ2Px4"/>
+          <div className="w-full md:w-1/2 aspect-square rounded-xl overflow-hidden shadow-2xl relative group">
+            <img alt="Tournament" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000" src={featuredEventImg}/>
             <div className="absolute inset-0 bg-primary/10 mix-blend-overlay"></div>
           </div>
-          <div className="w-full md:w-1/2">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="w-full md:w-1/2"
+          >
             <h3 className="text-xs font-label text-primary tracking-[0.4em] uppercase mb-4">Next Event</h3>
             <h2 className="text-5xl font-serif mb-6 italic">Fresher's Chess League</h2>
             <p className="text-on-surface-variant text-lg mb-8 leading-relaxed">Experience the thrill of OTB chess! An exclusive 8-player team tournament kicking off with live offline auctions. Fight through the group pools to secure the top knockout spots!</p>
@@ -107,18 +150,15 @@ const Landing = () => {
                 <span className="font-medium">8 Gold Memberships + Coupons</span>
               </li>
             </ul>
-            <button className="primary-gradient text-on-primary font-bold px-12 py-5 rounded-lg shadow-xl">
-                Register for League
-            </button>
-          </div>
+          </motion.div>
         </div>
-      </section>
+      </motion.section>
 
       <footer className="bg-surface-container-lowest py-16 px-12 lg:px-20 border-t border-outline-variant/10">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           <div className="col-span-1 md:col-span-2">
-            <h4 className="text-xl font-serif italic text-primary mb-4">The Grandmaster’s Ledger</h4>
-            <p className="text-on-surface-variant max-w-sm mb-6">The official digital portal for the IIT Kanpur Chess Club. Archiving brilliance since 1974.</p>
+            <h4 className="text-xl font-serif italic text-primary mb-4">Chess Club IITK</h4>
+            <p className="text-on-surface-variant max-w-sm mb-6">The official digital portal for the IIT Kanpur Chess Club. Archiving brilliance since 2007.</p>
             <div className="flex gap-4">
               <span className="w-10 h-10 flex items-center justify-center rounded-full bg-surface-container hover:bg-primary transition-colors hover:text-on-primary cursor-pointer">
                 <span className="material-symbols-outlined">public</span>
