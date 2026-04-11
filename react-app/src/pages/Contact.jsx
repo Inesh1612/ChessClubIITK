@@ -20,6 +20,14 @@ const COORDINATORS = [
   },
   {
     id: 'coord-2',
+    name: "Pulkit Gajipara",
+    role: "Coordinator",
+    funnyDescription: `"Placeholder funny quote or description goes here. Maybe they like cats or play e4 exclusively?"`,
+    email: `pulkit@iitk.ac.in`,
+    image: profileImg
+  },
+  {
+    id: 'coord-3',
     name: "Tanmay Sahare",
     role: "Coordinator",
     funnyDescription: `"Placeholder funny quote or description goes here. Maybe they like cats or play e4 exclusively?"`,
